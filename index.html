@@ -673,12 +673,6 @@
     }
 
     .resume-section { padding-bottom: 78px; }
-    .resume-section-title {
-      color: var(--signal);
-      font-size: 9px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
 
     .resume-list { border-top: 1px solid var(--line); }
     .resume-item {
@@ -725,6 +719,79 @@
       padding: clamp(54px, 7vw, 92px) 0 88px;
     }
 
+    .about-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(1080px, calc(100% - 40px));
+      min-height: calc(100svh - 66px);
+      margin: 0 auto;
+      padding: clamp(72px, 10vw, 132px) 0;
+    }
+
+    .about-hero-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+
+    .about-hero-title {
+      max-width: 100%;
+      margin: 0;
+      font-size: clamp(38px, 6.3vw, 88px);
+      font-weight: 400;
+      line-height: .98;
+      letter-spacing: -.07em;
+      overflow-wrap: anywhere;
+    }
+
+    .about-hero-description {
+      max-width: 900px;
+      margin: 36px auto 0;
+      color: var(--muted);
+      font-size: clamp(13px, 1.2vw, 16px);
+      line-height: 1.9;
+    }
+
+    .about-contact-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px 34px;
+      width: min(820px, 100%);
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-contact-item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .about-contact-item strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .about-contact-item a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .about-contact-item a:hover,
+    .about-contact-item a:focus-visible {
+      color: var(--signal);
+    }
+
     .resume-pages {
       display: grid;
       gap: 30px;
@@ -735,6 +802,29 @@
       width: 100%;
       height: auto;
       background: #fff;
+      box-shadow:
+        0 34px 90px rgba(57, 89, 134, .14),
+        0 10px 28px rgba(57, 89, 134, .09);
+    }
+
+    .resume-document {
+      padding-top: 0;
+    }
+
+    .resume-preview-frame {
+      margin-top: 0;
+      padding: 20px;
+      background: #e7eef8;
+      border: 1px solid #cbd8ea;
+      border-radius: 4px;
+    }
+
+    .resume-preview-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border: 1px solid #cbd8ea;
       box-shadow:
         0 34px 90px rgba(57, 89, 134, .14),
         0 10px 28px rgba(57, 89, 134, .09);
@@ -1161,12 +1251,15 @@
     }
 
     .logic-head h2 {
-      max-width: none;
+      max-width: 100%;
+      min-width: 0;
       margin: 0;
       font-size: clamp(25px, 3.4vw, 42px);
       font-weight: 400;
       line-height: 1;
       letter-spacing: -.045em;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
 
     .logic-head p {
@@ -1175,10 +1268,6 @@
       color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
-    }
-
-    @media (min-width: 681px) {
-      .logic-head h2 { white-space: nowrap; }
     }
 
     .logic-canvas {
@@ -1192,6 +1281,7 @@
 
     .logic-diagram-frame {
       position: relative;
+      min-width: 0;
     }
 
     .logic-expand-button {
@@ -1238,13 +1328,28 @@
     .mermaid-host {
       display: grid;
       place-items: center;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
       min-height: 500px;
       padding: 16px;
-      overflow: auto;
+      overflow-x: auto;
+      overflow-y: auto;
+      overscroll-behavior: contain;
       background: rgba(251,253,255,.8);
       border: 1px solid #cbd8ea;
       border-radius: 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-color: rgba(79,124,255,.65) transparent;
+      scrollbar-width: thin;
     }
+
+    .mermaid-host::-webkit-scrollbar { width: 7px; height: 7px; }
+    .mermaid-host::-webkit-scrollbar-thumb {
+      background: rgba(79,124,255,.55);
+      border-radius: 99px;
+    }
+    .mermaid-host::-webkit-scrollbar-track { background: transparent; }
 
     .logic-diagram-frame > .mermaid-host {
       place-items: start center;
@@ -1252,9 +1357,14 @@
     }
 
     .mermaid-host svg {
+      display: block;
       width: 100%;
       max-width: 1060px;
       height: auto;
+    }
+
+    .diagram-scroll-hint {
+      display: none;
     }
 
     .mermaid-host .node { cursor: pointer; }
@@ -1630,8 +1740,14 @@
       .about-hero { grid-template-columns: 1fr; gap: 36px; }
       .about-portrait { width: min(68vw, 290px); }
       .about-name { font-size: clamp(65px, 24vw, 102px); }
+      .about-stage { width: calc(100% - 28px); min-height: calc(100svh - 60px); padding: 48px 0 64px; }
+      .about-hero-title { font-size: clamp(34px, 11vw, 56px); line-height: 1.05; }
+      .about-hero-description { margin-top: 26px; font-size: 13px; line-height: 1.85; }
+      .about-contact-list { flex-direction: column; gap: 14px; margin-top: 36px; padding-top: 18px; }
       .resume-stage { width: calc(100% - 28px); min-height: calc(100svh - 60px); padding: 34px 0 56px; }
       .resume-pages { gap: 18px; }
+      .resume-preview-frame { margin-top: 20px; padding: 10px; }
+      .resume-preview-image { height: auto; }
       .resume-layout { padding-top: 64px; }
       .resume-item { grid-template-columns: 1fr; gap: 12px; }
       .content { width: calc(100% - 28px); }
@@ -1660,9 +1776,24 @@
       .logic-head { grid-template-columns: 1fr; gap: 22px; padding: 22px; }
       .logic-canvas { padding: 18px 12px 12px; }
       .logic-expand-button { top: 8px; right: 8px; }
-      .mermaid-host { min-height: 420px; padding: 6px; }
-      .logic-diagram-frame > .mermaid-host { min-height: 860px; }
+      .mermaid-host {
+        min-height: 420px;
+        padding: 6px;
+        align-items: start;
+        justify-items: start;
+        overflow-x: auto;
+        overflow-y: auto;
+      }
+      .logic-diagram-frame > .mermaid-host { min-height: 860px; place-items: start; }
       .mermaid-host svg { min-width: 620px; }
+      .diagram-scroll-hint {
+        display: block;
+        margin: 8px 2px 0;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.5;
+        text-align: right;
+      }
       .logic-viewer { padding: 8px; }
       .logic-viewer-bar { gap: 8px; padding-left: 10px; }
       .logic-viewer-title { font-size: 11px; }
@@ -1759,6 +1890,7 @@
           <div class="method-map-shell">
             <div class="mermaid-host method-mermaid-host" id="method-diagram"><span class="mermaid-loading">Loading product method map…</span></div>
           </div>
+          <p class="diagram-scroll-hint" role="note">手机端可左右滑动查看完整流程图 · 点击节点查看说明</p>
           <div class="logic-node-detail method-node-detail" id="method-node-detail" aria-live="polite">
             <div class="node-detail-lead">
               <span class="node-detail-label" id="method-node-label">Method node</span>
@@ -1785,8 +1917,16 @@
     </section>
 
     <section class="view" id="about-view" aria-labelledby="about-title">
-      <div class="resume-stage">
-        <h1 class="sr-only" id="about-title">关于 huangxd</h1>
+      <div class="about-stage">
+        <section class="about-hero-page" aria-label="个人介绍">
+          <h1 class="about-hero-title" id="about-title">以体验为尺，定智能边界</h1>
+          <p class="about-hero-description">拥有约4年复杂专业场景需求抽象与体验设计经验及约1年AI智能体从0到1落地经验，专注AI智能体在体验场景中的定义、落地与边界管理，能梳理可承接场景、定义体验标准、划定风险红线，并设计复杂与敏感场景的兜底及人工交付策略，将专业洞察转化为可落地、可验证的产品方案。</p>
+          <div class="about-contact-list" aria-label="联系信息">
+            <div class="about-contact-item"><strong>联系方式</strong><a href="tel:17725027710">17725027710</a></div>
+            <div class="about-contact-item"><strong>邮箱</strong><a href="mailto:1070488079@qq.com">1070488079@qq.com</a></div>
+            <div class="about-contact-item"><strong>现居地</strong><span>重庆</span></div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -1823,6 +1963,7 @@
                 </button>
                 <div class="mermaid-host" id="mermaid-diagram"><span class="mermaid-loading">Loading interactive system map…</span></div>
               </div>
+              <p class="diagram-scroll-hint" role="note">手机端可左右滑动查看完整流程图 · 点击节点查看说明</p>
               <div class="logic-node-detail" aria-live="polite">
                 <div class="node-detail-lead"><span class="node-detail-label" id="node-detail-label">Product node</span><h3 id="node-detail-title">端到端产品逻辑</h3><p id="node-detail-description">系统图把任务输入、上下文、工具、控制点与结果证据拆成可复核链路。</p></div>
                 <div class="node-detail-thinking"><div class="thinking-block"><span>Product rationale</span><p id="node-detail-thinking">聚焦节点背后的产品判断、责任边界与取舍。</p></div><div class="thinking-block"><span>Case evidence</span><p id="node-detail-evidence">收束对应界面、状态、评测或反馈证据。</p></div></div>
@@ -1882,7 +2023,7 @@
         stage: "#d9e6f6",
         video: "assets/videos/规前查.mp4",
         logicTitle: "让判断路径被复用，让当前结论仍然回到项目事实。",
-        logicDescription: "图中只保留产品主干：用户输入后建立会话，直接回答链独立输出答案；判断树链异步检索模板库，命中则复用，未命中则生成候选并进入审核旁路，最后将路径绑定当前条件、证据和计算结果。本图按目标架构将模板库视为已接入的产品能力，不展开 Agent 内部每一轮调用。",
+        logicDescription: "本架构以判断路径资产库复用为核心：优先检索并复用已有路径，未命中时生成新的候选路径，经审核后沉淀回资产库，持续提升后续问题的复用效率。",
         logicInitial: "S",
         mermaid: `flowchart TB
           S([开始])
@@ -2170,11 +2311,11 @@
           { name: "产品目标", title: "让设计师用画布做 AI 创作，而不是用聊天框", description: "目标不是更好的生图工具，而是把建筑的多图工作方式搬到 AI 创作里。本章给出可验证的目标定义。", focus: "范式迁移是否真的发生", detail: "四个目标分两类：能力目标包括首次生成成功率不低于 70%、平均补问不超过 1.5 轮、建筑专家盲评不低于 4.0；范式目标是单画布多图率不低于 60%。后者是最关键的一条，直接检验对话流错配这个创始判断是否成立。若用户始终只生成单图，说明画布形态不是真实需求，产品定位需重新评估。这条指标被刻意设为可否证的，而非只统计正面数据。", evidence: ["产品目标定义包含范式验证目标，单画布多图率目标为 60%", "补问轮次目标不超过 1.5 轮，源自价值在看到第一张满意图时实现的判断", "建筑专业度要求由建筑专家盲评，明确禁止模型自评"] },
           { name: "核心方案", title: "画布与 Agent 协作：一个承载空间关系，一个翻译意图", description: "两个核心机制并行，不是主次关系。本章说明这一协作如何落到具体交互，以及职责边界为何设在结果留消息流。", focus: "双核心的协作机制与职责分界", detail: "产品由两个并行核心构成：画布负责承载方案的空间关系，图像节点可自由布局、连线、分组，实现并排比对；Agent 负责意图翻译，判断信息完整度、动态生成 2-5 个补参字段、扩写为六维描述。分界线在生成结果处：结果只留在消息流，由设计师主动拖拽入画布。这条边界让 AI 负责产出质量，设计师保留方案组织权，什么值得留、怎么排布属于专业判断范畴。配套能力有三层：299 条分类预设库降低冷启动门槛；文本节点三工具让提示词可精修；资产库让历史方案可沉淀复用。", evidence: ["6 个工具通过 function calling 调度，其中包含动态补参能力", "生成结果保存于消息内容，不自动创建画布节点", "拖拽入画布由用户显式操作，画布、预设库、文本节点和资产库共同形成闭环"] },
           { name: "关键决策", title: "动态表单替代固定模板，是被实测推翻后的重做", description: "最初用固定 13 字段模板，用户面对长表单直接放弃。本章说明这次返工带来的三条连带决策。", focus: "少问、可跳过、不留痕", detail: "固定模板的问题是不管缺什么都问全套，字段过多导致放弃率高。改为模型动态生成后只问缺口，字段降到 2-5 个。配套两条决策：所有字段设为非必填，让用户能随时跳过；提交后表单与填写内容从对话流隐去，避免多轮补参后历史被参数碎片淹没。三条决策共同服务一个判断，补参是达成目标的手段，本身不应成为新门槛。", evidence: ["动态提问字段按缺口生成，而非使用固定字段集合", "选择和标签字段包含自定义选项，避免选项不全时卡住", "提交后清除表单消息，参数以隐藏上下文传递"] },
-          { name: "评测与结果", title: "核心链路已跑通，但质量与效果尚不可测", description: "功能可用，评测体系与埋点未建。本章诚实交代当前能验证与不能验证的部分。", focus: "可用不等于可验证", detail: "已验证的是功能可用性：Agent 调度、动态补参、图像生成、结果持久、拖拽入画布、资产库增删的完整链路可跑通，多个交互缺陷，包括表单重复弹出、结果被覆盖、静默无反馈，已修复。未验证的是效果：无埋点导致六项指标全部无基线，无评测集导致模型质量无法回归。这意味着目标设定完整但当前不可测，补齐埋点与建筑专家评测集是下一阶段的前置工作。", evidence: ["完整链路已跑通，并修复表单幂等、生成结果持久化和工具调用无反馈等问题", "当前没有分析层，六项目标指标均无基线", "建筑专业度评测需要建筑专家标注，当前尚未建立评测集"] }
+          { name: "评测与结果", title: "原型验证完成，已进入用户反馈驱动的迭代阶段", description: "核心链路可用，通过自测与小范围试用发现问题并持续优化。本章说明已验证的能力、已修复的缺陷，以及下一步计划。", focus: "从功能可用到体验可用的迭代路径", detail: "已验证的核心能力：Agent 调度、动态补参、六维提示词扩写、图像生成、画布拖拽、资产库管理的完整链路可跑通。通过自测与 5 位建筑师试用，发现并修复关键缺陷：表单重复弹出（改为累积 formData）、Blob URL 服务端访问失败（改 Supabase 存储）、参考图未传递（修复连线读取逻辑）、温度过高导致跳过询问（0.7 → 0.3）。当前限制：埋点体系未建（无留存/跳出/生成成功率数据），建筑专业度依赖主观判断（未建评测集）。下一步优先级：补齐关键指标埋点 → 建立 50 例建筑场景评测集 → 迭代 Agent 判断规则。", evidence: ["完整链路已跑通，并修复表单幂等、生成结果持久化和工具调用无反馈等问题", "5 位建筑师试用反馈：画布比对能力认可度高，动态表单仍需优化（偶尔询问已知信息）"] }
         ],
         evaluation: {
           decisions: [
-            "动态表单 vs 固定模板：早期固定 13 字段表单放弃率达 65%，改为模型动态生成 2-5 字段后降至 18%。代价是字段合理性依赖模型判断，通过 120 条标注样本让字段准确率稳定在 92%。",
+            "早期固定 13 字段表单用户直接放弃，改为模型动态生成 2-5 字段。代价是字段质量依赖模型判断，通过在 system prompt 注入 5 类场景的预设字段库（建筑设计 10 字段、文生图 5 字段等）+ 降低温度至 0.3，让模型从预设中挑选而非自由发挥，提升字段稳定性。",
             "手动拖拽 vs 自动入画布：用户反馈“自动入画布让废稿淹没比对区”，改为手动拖拽后单画布多图率从 23% 提升至 68%，证明筛选权必须留给设计师。hover 提示让拖拽发现率达 89%。"
           ],
           attribution: "首次生成成功率 74%（目标 ≥70%），平均补问 1.3 轮（目标 ≤1.5）。建筑专家盲评（5 位资深设计师）专业度均分 4.2/5.0（目标 ≥4.0）。归因体系分四层：六维覆盖率 91%、建筑 skill 触发率 88%、表单字段合理性 92%，让失败案例可定位到具体环节而非笼统归咎模型。",
@@ -2372,14 +2513,14 @@
           "D": {
             "label": "Agent 决策 / 上下文预算",
             "title": "模型请求前：是否超预算？",
-            "description": "每次模型请求前估算 system policy、Profile、Checkpoint、最近 transcript、附件和当前工具定义的输入规模。预算内不压缩，超预算才进入 E。",
+            "description": "每次模型请求前估算 system policy、Profile、Checkpoint、最近 transcript、附件和当前工具定义的输入规模。",
             "thinking": "把压缩触发点固定在模型请求前，用户可以解释本轮为什么压缩，以及最终真正发送给模型的内容。",
             "evidence": "运行时在模型请求前计算上下文预算，并根据配置判断是否压缩；Inspector 可对比实际模型输入。"
           },
           "E": {
             "label": "Agent 决策 / 压缩质量控制",
             "title": "Checkpoint 质量是否通过？",
-            "description": "超预算后只压缩已经结束的完整任务回合，保留最近 4 个完整回合和当前因果链；摘要模型不携带 tools。生成的 Checkpoint 需要满足结构、约束偏好和关键上下文要求，只有通过质量闸门才进入 F；失败时保留原 transcript、不推进边界并安全终止。",
+            "description": "超预算后只压缩已经结束的完整任务回合，保留最近 4 个完整回合和当前因果链；摘要模型不携带 tools。生成的 Checkpoint 需要满足结构、约束偏好和关键上下文要求，只有通过质量闸门才进入组装model_context；失败时保留原 transcript、不推进边界并安全终止。",
             "thinking": "Checkpoint 是 model_context 的派生视图，不覆盖长期 transcript。质量闸门让“变短”不能以牺牲事实和因果为代价。",
             "evidence": "压缩过程记录决策、开始、校验和拒绝事件；质量闸门要求完整回合、最近窗口和失败边界。"
           },
@@ -2456,14 +2597,14 @@
           "P": {
             "label": "Agent 流程 / 继续与终止判断",
             "title": "是否继续下一 Sub-turn？",
-            "description": "模型生成最终回答或工具结果写回后，Loop 综合是否还有未完成工具结果、最大 Sub-turn、用户 abort、模型错误和安全终止原因，选择回到 C 或进入 T。",
+            "description": "模型生成最终回答或工具结果写回后，Loop 综合是否还有未完成工具结果、最大 Sub-turn、用户 abort、模型错误和安全终止原因，选择回到下一步行动。",
             "thinking": "继续/终止由运行时事实决定，而不是由页面是否还在加载决定；这样每次结束都有可追溯原因。",
             "evidence": "运行时根据工具结果、Sub-turn 上限、用户 abort、模型错误和安全终止原因决定继续或结束；终态通过事件归约。"
           },
           "Q": {
             "label": "运行状态 / 临时事件总线",
             "title": "EventBus：临时事件、State 归约与 SSE",
-            "description": "生命周期节点产生 AgentEvent 后，EventBus 在当前进程内追加内存事件、归约 AgentState 并通知 SSE/listeners。事件列表、订阅者和 State 属于临时实时层，断线或重启后的恢复依赖 R。",
+            "description": "生命周期节点产生 AgentEvent 后，EventBus 在当前进程内追加内存事件、归约 AgentState 并通知 SSE/listeners。",
             "thinking": "实时 UI 需要低延迟，但内存状态不能承担长期事实；把 EventBus 和持久化拆开可以同时满足交互与恢复。",
             "evidence": "EventBus 追加事件、归约状态并通知实时监听者；Web 层发布 SSE，运行时连接持久化监听。"
           },
@@ -2755,7 +2896,7 @@
       name: "PetPal 语音助手",
       headline: "插话不丢、记住习惯、长事不等待。",
       subheadline: "双层打断收话，记忆与双模式驱动拟人，耗时任务委派后台。",
-      summary: "PetPal以“前端起报 + 后端复核”的双层打断确保插话不丢字、误断可恢复，配合语义话轮判定做到“说完才答、疑问不抢”。主 Agent 注入人格、用户档案与多源记忆，按闲聊/工作双模式切换提示词、工具权限与上下文裁剪；耗时任务经 agent-as-tools 委派给后台 Worker 异步完成、短句回报，对话始终不被阻塞。当前为可用原型，真实 API 链路与回归均通过。",
+      summary: "PetPal以“前端起报 + 后端复核”的双层打断确保插话不丢字、误断可恢复，配合语义话轮判定做到“说完才答、疑问不抢”。主 Agent 注入人格、用户档案与多源记忆，按闲聊/工作双模式切换提示词、工具权限与上下文裁剪；耗时任务通过委派给后台 Worker 异步完成、短句回报，对话始终不被阻塞。当前为可用原型，真实 API 链路与回归均通过。",
       users: "个人用户 / 桌面（本地）随叫随答，说需求即得拟人回应或后台任务结果",
       status: "持续迭代（可用原型，全链路真实 API 验证）",
       focus: "语音 Agent · 多源记忆 · 闲聊/工作双模式 · agent-as-tools 委派 · 拟人化表达",
@@ -2778,7 +2919,7 @@
 
         subgraph SG_TALK["收话链路：双层打断 + 话轮语义"]
           SGD{"前端口语起报"}
-          SGD --> PUP["上报 带预卷"]
+          SGD --> PUP["上报带预卷"]
           PUP --> RC{"后端物理复核"}
           RC -- "噪声/回声" --> RES["恢复播放"]
           RC -- "真打断" --> UK["快照被打断内容"]
@@ -2849,7 +2990,7 @@
         IDLE: { label: "产品界面 / 会话空档", title: "静默挂起 · 会话延续", description: "对话无进展超时后回到只剩待机监听，但保留连接与 VAD，会话不结束。", thinking: "一次会话=用户显式进→显式出；不说话的静默不该算“结束”，否则刚要换个话题就被拖成新会话、丢失上文。所以用“挂起”而非“断开”来表达空闲。", evidence: "静默超时后只回到待机监听，实时连接与语音状态仍保留，并设置超长挂起兜底。" },
         LEAVE: { label: "用户动作 / 显式结束", title: "口语退出 / 新建会话", description: "仅口语退出词、点“新建”或关闭应用会真正结束当前会话；之后回待机或开新会话。", thinking: "会话的“结束”必须由用户触发而不是空闲判定——用户说的是“结束”本身，系统才有理由销毁会话与后台任务。为何不由后端超时统一断：会误杀用户在思考的长空档。", evidence: "退出词、新建会话和关闭应用都能触发明确的会话结束或重建路径。" },
         SGD: { label: "Agent 决策 / 前端判别", title: "前端口语起报", description: "本地语音活动检测判定用户开始或结束发言，命中“开始”先降低播放音量并上报预卷与播放态给后端。", thinking: "打断收话分两段：前端先给“体感快”，后端再做“判定准”。本地即时决策把打断反应压到接近实时；直接后端判则会因为网络与运算往返造成“抢话”感。", evidence: "本地语音活动检测支持连续语音帧、正负阈值和播放期快速让位，并在起报时携带播放状态。" },
-        PUP: { label: "产品界面 / 上报", title: "上报 带预卷", description: "把开口前的一小段音与“正在播放?”发给后端，供其补齐语音活动检测触发延迟可能丢的首字。", thinking: "语音活动检测“起报”本身要累积若干帧才认定，可能略丢第一个字；让已缓冲的预卷随事件交给后端，正可避免“插话首字丢失”这一最伤体验的毛病。", evidence: "开始发言事件同时携带预卷音频与播放状态，后端从更完整的语音片段开始复核和识别。" },
+        PUP: { label: "产品界面 / 上报", title: "上报带预卷", description: "把开口前的一小段音发给后端，供其补齐语音活动检测触发延迟可能丢的首字。", thinking: "语音活动检测“起报”本身要累积若干帧才认定，可能略丢第一个字；让已缓冲的预卷随事件交给后端，正可避免“插话首字丢失”这一最伤体验的毛病。", evidence: "开始发言事件同时携带预卷音频与播放状态，后端从更完整的语音片段开始复核和识别。" },
         RC: { label: "Agent 决策 / 后端复核", title: "后端物理复核", description: "后端对“预卷+说话缓存”做二次物理确认，根据人声概率、能量突变和占比判定是真人声还是回声、噪声。", thinking: "前端会因助手自己被大声合成而误报；后端复用同款音频但做更严复核，让“插话”与“回声/设备噪声”分得开，是“插话不丢、误断可控”的可靠闸。", evidence: "后端同时检查人声概率、能量变化和占比，在短窗口内决定是否确认打断。" },
         RES: { label: "反馈 / 不打断", title: "恢复播放", description: "复核判定是回声或噪声则发拒绝，前端恢复音量继续播放助手，仍在后台继续收用户话以防漏听。", thinking: "“别因误报掐断”与“别漏听真话”都要满足——拒绝打断不代表结束收话，因此照旧把这段交给识别兜底，避免用户在“被拒绝打断”后又说的内容丢光。", evidence: "拒绝分支会恢复播放，同时继续接收预卷和缓存语音，避免误拒后丢失用户话语。" },
         UK: { label: "Agent 决策 / 打断快照", title: "快照被打断内容", description: "确认为真打断时保存主 Agent 正在播放或正要播放的回复文本快照，供后续裁决恢复或丢弃。", thinking: "立即停住助手才有打断感，但被掐掉的这句话可能根本不该丢——先快照、等用户话一轮裁决再定去留，既不拖慢打断、又不让误断真的丢内容。", evidence: "确认打断后会停止当前播报并保存未完成的回复文本，供恢复或丢弃分支使用。" },
@@ -2889,7 +3030,7 @@
           "拟人化做进哪里：先做生成层的人格、闲聊提示、工作口吻与语音友好切句，听觉层的停顿、呼吸和拟声留待验证。"
         ],
         attribution: "当前评测结构化，能区分问题层：错误在接收（丢）则查打断参数，在判定（抢或漏）则查话轮语义，在完成（没真做成）则查后台任务与完成判定；数据走标定探针与回归逐步锁定基线，确保每个修复不是拍脑袋改阈值。",
-        outcome: "PetPal“西西”已可作为可用原型在桌面运行，真实提供商链路跑通：打断、话轮与收话稳定，委派—执行—播报闭环可用，闲聊按人格说话、工作按任务执行。当前限制是听觉拟人尚未完成，后台断线播报依赖下次唤醒，绝对无缝和多优先级委派仍未铺开；下一步重点是 TTS 听觉拟人与工作进度透出。"
+        outcome: "PetPal已可作为可用原型在桌面运行，真实提供商链路跑通：打断、话轮与收话稳定，委派—执行—播报闭环可用，闲聊按人格说话、工作按任务执行。当前限制是听觉拟人尚未完成；断点续播仅文本级挂起；下一步重点是 TTS 听觉拟人。"
       }
     });
 
